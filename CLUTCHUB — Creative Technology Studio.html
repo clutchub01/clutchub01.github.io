@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CLUTCHUB — Creative Technology Studio</title>
+<meta name="description" content="CLUTCHUB is a creative technology studio building custom websites, AI automation, and digital systems that move businesses forward.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F4F1;
+    --ink:#0A0A0A;
+    --muted:#7A7873;
+    --line:rgba(10,10,10,0.12);
+    --line-strong:rgba(10,10,10,0.28);
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:inherit;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+  html,body{height:100%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  .wrap{max-width:100%;overflow-x:auto}
+  .disp{font-family:'Archivo',sans-serif;font-weight:900;letter-spacing:-0.02em;line-height:0.95}
+  a{color:inherit;text-decoration:none}
+  .container{padding:0 clamp(20px,5vw,64px)}
+  .label{font-size:11px;letter-spacing:0.14em;color:var(--muted);font-weight:500}
+
+  /* nav */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    padding:env(safe-area-inset-top,0px) clamp(20px,5vw,64px) 0;
+    display:flex;align-items:center;justify-content:space-between;
+    height:calc(80px + env(safe-area-inset-top,0px));
+    background:rgba(246,244,241,0.82);backdrop-filter:blur(10px);
+  }
+  .brand-mark{display:flex;flex-direction:column;line-height:1}
+  .brand-mark strong{font-family:'Archivo',sans-serif;font-weight:900;font-size:19px;letter-spacing:-0.01em}
+  .brand-mark span{font-size:9px;letter-spacing:0.14em;color:var(--muted);margin-top:3px}
+  nav ul{display:flex;gap:32px;list-style:none;font-size:13px;font-weight:500}
+  nav ul li a{position:relative;padding-bottom:2px}
+  nav ul li a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--ink);transition:width .3s ease}
+  nav ul li a:hover::after{width:100%}
+  .cta-pill{
+    border:1px solid var(--line-strong);border-radius:999px;
+    padding:9px 18px;font-size:13px;font-weight:500;
+    transition:background .25s ease,color .25s ease;
+  }
+  .cta-pill:hover{background:var(--ink);color:var(--bg)}
+  .nav-right{display:flex;align-items:center;gap:36px}
+  .burger{display:none;background:none;border:0;cursor:pointer}
+  .burger span{display:block;width:22px;height:1.5px;background:var(--ink);margin:5px 0}
+
+  /* hero */
+  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:calc(170px + env(safe-area-inset-top,0px))}
+  .hero h1{font-size:clamp(44px,8.4vw,132px);text-transform:uppercase}
+  .hero-sub{margin-top:28px;max-width:420px;font-size:16px;color:var(--muted);line-height:1.5}
+  .hero-cta{display:inline-block;margin-top:32px;font-size:15px;font-weight:600;border-bottom:1px solid var(--ink);padding-bottom:4px}
+  .hero-index{
+    margin-top:clamp(48px,9vw,110px);padding-top:22px;border-top:1px solid var(--line);
+    font-size:12px;letter-spacing:0.1em;color:var(--muted);
+    display:flex;flex-wrap:wrap;gap:10px 24px;
+  }
+
+  /* generic section spacing */
+  section{padding:clamp(80px,11vw,150px) 0}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(40px,6vw,80px)}
+  .section-head .label{border-top:1px solid var(--line);padding-top:14px;flex:1}
+
+  /* intro */
+  .intro h2{font-size:clamp(32px,6.2vw,84px);text-transform:uppercase;max-width:900px}
+  .intro p{margin-top:32px;max-width:460px;font-size:17px;color:var(--muted);line-height:1.6}
+
+  /* services */
+  .service-row{
+    border-top:1px solid var(--line);padding:30px 0;
+    display:grid;grid-template-columns:70px 1fr 1fr;gap:32px;align-items:start;
+    cursor:default;transition:padding .35s ease;
+  }
+  .service-row:last-child{border-bottom:1px solid var(--line)}
+  .service-row:hover{padding:44px 0}
+  .service-row .idx{font-size:13px;color:var(--muted);padding-top:6px}
+  .service-row h3{font-size:clamp(24px,3.4vw,42px);text-transform:uppercase;font-weight:900;font-family:'Archivo',sans-serif;transition:letter-spacing .35s ease}
+  .service-row:hover h3{letter-spacing:0.01em}
+  .service-row p{font-size:15px;color:var(--muted);max-width:380px;padding-top:8px;line-height:1.55}
+
+  /* work */
+  .project{margin-bottom:clamp(60px,9vw,120px)}
+  .project:nth-child(even){margin-left:auto;max-width:88%}
+  .project-frame{
+    aspect-ratio:16/10;background:#EAE7E1;border:1px solid var(--line);
+    position:relative;overflow:hidden;
+  }
+  .project-frame .ph{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-size:12px;letter-spacing:0.1em;color:var(--muted);
+    transition:transform .6s cubic-bezier(.16,1,.3,1);
+  }
+  .project:hover .ph{transform:scale(1.04)}
+  .project-meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px}
+  .project-meta h3{font-size:clamp(20px,2.6vw,30px);font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase}
+  .project-meta .view{font-size:13px;font-weight:500;opacity:0;transform:translateX(-6px);transition:all .3s ease}
+  .project:hover .view{opacity:1;transform:translateX(0)}
+
+  /* automation */
+  .automation{background:var(--ink);color:var(--bg)}
+  .automation .label{color:rgba(246,244,241,0.55)}
+  .automation h2{font-size:clamp(34px,6.4vw,90px);text-transform:uppercase}
+  .automation p{margin-top:28px;max-width:440px;color:rgba(246,244,241,0.65);font-size:16px;line-height:1.6}
+  .flow{
+    margin-top:clamp(50px,8vw,100px);display:flex;align-items:center;flex-wrap:wrap;gap:0;
+    font-size:clamp(12px,1.4vw,14px);letter-spacing:0.08em;
+  }
+  .flow span{padding:10px 0}
+  .flow .arrow{flex:1;min-width:24px;height:1px;background:rgba(246,244,241,0.3);margin:0 14px;position:relative}
+  .automation-cta{display:inline-block;margin-top:44px;font-size:15px;font-weight:600;border-bottom:1px solid var(--bg);padding-bottom:4px}
+
+  /* process */
+  .process-list{border-top:1px solid var(--line)}
+  .process-item{
+    display:grid;grid-template-columns:70px 1fr;gap:32px;padding:34px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .process-item .idx{font-size:13px;color:var(--muted)}
+  .process-item h3{font-size:clamp(22px,3vw,36px);font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase}
+  .process-item p{margin-top:8px;color:var(--muted);font-size:15px;max-width:420px}
+
+  /* statement */
+  .statement{text-align:center;padding:clamp(100px,16vw,200px) 0}
+  .statement h2{font-size:clamp(30px,7vw,96px);text-transform:uppercase}
+  .statement h2.two{margin-top:20px;color:var(--muted);font-family:'Archivo',sans-serif;font-weight:900}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1fr 1.4fr;gap:40px}
+  .about h2{font-size:clamp(30px,5vw,60px);text-transform:uppercase}
+  .about p{font-size:17px;color:var(--muted);line-height:1.6;max-width:480px}
+  .about .tags{margin-top:26px;display:flex;gap:16px;font-size:12px;letter-spacing:0.1em;color:var(--muted)}
+
+  /* final cta */
+  .final{text-align:center}
+  .final h2{font-size:clamp(36px,8vw,108px);text-transform:uppercase}
+  .final-cta{
+    display:inline-block;margin-top:40px;font-size:clamp(20px,2.6vw,30px);font-weight:700;
+    padding-bottom:8px;border-bottom:2px solid var(--ink);transition:opacity .3s ease;
+  }
+  .final-cta:hover{opacity:.5}
+  .final p{margin-top:26px;color:var(--muted);font-size:15px}
+
+  footer{border-top:1px solid var(--line);padding:50px clamp(20px,5vw,64px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px}
+  footer .brand-mark strong{font-size:16px}
+  footer nav ul{gap:26px}
+  footer .socials{display:flex;gap:20px;font-size:13px}
+  .bottom-line{width:100%;margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:760px){
+    nav ul,.nav-right .label{display:none}
+    .burger{display:block}
+    .service-row,.process-item{grid-template-columns:40px 1fr}
+    .about{grid-template-columns:1fr}
+    .project:nth-child(even){margin-left:0;max-width:100%}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
+  :root:not([data-theme="light"]){}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#top" class="brand-mark"><strong>CLUTCHUB</strong><span>CREATIVE TECHNOLOGY STUDIO</span></a>
+  <div class="nav-right">
+    <nav><ul>
+      <li><a href="#work">WORK</a></li>
+      <li><a href="#services">SERVICES</a></li>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul></nav>
+    <a href="#contact" class="cta-pill">LET'S TALK ↗</a>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero container">
+    <h1 class="disp reveal">WE BUILD AND<br>DESIGN CUSTOM<br>WEBSITES.</h1>
+    <p class="hero-sub reveal">We build what moves business forward.</p>
+    <a href="#contact" class="hero-cta reveal">NEED A WEBSITE? DM US →</a>
+    <div class="hero-index reveal">
+      <span>WEB DEVELOPMENT</span><span>/</span><span>AI AUTOMATION</span><span>/</span><span>DIGITAL SYSTEMS</span>
+    </div>
+  </section>
+
+  <section class="intro container">
+    <div class="reveal">
+      <h2 class="disp">WE BUILD WHAT MOVES BUSINESS FORWARD.</h2>
+      <p>We design and develop custom digital experiences that help businesses communicate better, attract customers, and operate more efficiently.</p>
+    </div>
+  </section>
+
+  <section id="services" class="container">
+    <div class="section-head reveal"><span class="label">WHAT WE DO</span></div>
+    <div>
+      <div class="service-row"><span class="idx">01</span><h3>Custom Websites</h3><p>Design and development of distinctive, responsive websites built around your business.</p></div>
+      <div class="service-row"><span class="idx">02</span><h3>AI Automation</h3><p>Intelligent workflows and AI-powered systems that reduce repetitive work and improve how businesses operate.</p></div>
+      <div class="service-row"><span class="idx">03</span><h3>Digital Systems</h3><p>Custom digital tools, integrations, and web-based systems designed around specific business needs.</p></div>
+    </div>
+  </section>
+
+  <section id="work" class="container">
+    <div class="section-head reveal"><span class="label">SELECTED WORK</span></div>
+
+    <div class="project reveal">
+      <div class="project-frame"><div class="ph">PROJECT IMAGE — REPLACE</div></div>
+      <div class="project-meta"><h3>Northgate Retail</h3><span class="view">VIEW PROJECT ↗</span></div>
+      <span class="label">WEB DESIGN / DEVELOPMENT</span>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-frame"><div class="ph">PROJECT IMAGE — REPLACE</div></div>
+      <div class="project-meta"><h3>Vela Logistics</h3><span class="view">VIEW PROJECT ↗</span></div>
+      <span class="label">WEB DESIGN / AUTOMATION</span>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-frame"><div class="ph">PROJECT IMAGE — REPLACE</div></div>
+      <div class="project-meta"><h3>Amara Clinic</h3><span class="view">VIEW PROJECT ↗</span></div>
+      <span class="label">WEB DESIGN / DEVELOPMENT</span>
+    </div>
+  </section>
+
+  <section class="automation">
+    <div class="container">
+      <span class="label reveal">AI AUTOMATION</span>
+      <h2 class="disp reveal" style="margin-top:20px">LET YOUR BUSINESS RUN SMARTER.</h2>
+      <p class="reveal">From lead capture to customer support and internal workflows, we connect the right tools to remove repetitive work.</p>
+      <div class="flow reveal">
+        <span>CUSTOMER</span><span class="arrow"></span>
+        <span>WEBSITE</span><span class="arrow"></span>
+        <span>AI</span><span class="arrow"></span>
+        <span>AUTOMATION</span><span class="arrow"></span>
+        <span>BUSINESS</span>
+      </div>
+      <a href="#services" class="automation-cta reveal">EXPLORE AUTOMATION →</a>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head reveal"><span class="label">HOW WE BUILD</span></div>
+    <div class="process-list">
+      <div class="process-item"><span class="idx">01</span><div><h3>Discover</h3><p>Understand the business, audience, goals, and problem.</p></div></div>
+      <div class="process-item"><span class="idx">02</span><div><h3>Design</h3><p>Create the visual direction, structure, and user experience.</p></div></div>
+      <div class="process-item"><span class="idx">03</span><div><h3>Build</h3><p>Develop, integrate, test, and refine the system.</p></div></div>
+      <div class="process-item"><span class="idx">04</span><div><h3>Launch</h3><p>Deploy the finished experience and make sure everything works as intended.</p></div></div>
+    </div>
+  </section>
+
+  <section class="statement container">
+    <h2 class="disp reveal">POWERED BY EXCELLENCE.</h2>
+    <h2 class="disp two reveal">PREFERRED BY THOSE WHO VALUE THE DIFFERENCE.</h2>
+  </section>
+
+  <section id="about" class="container about">
+    <h2 class="disp reveal">CLUTCHUB</h2>
+    <div class="reveal">
+      <p>Clutchub is a creative technology studio focused on building digital experiences and systems that make businesses better.</p>
+      <div class="tags"><span>CREATIVE TECHNOLOGY STUDIO</span><span>WEB / AI / AUTOMATION</span></div>
+    </div>
+  </section>
+
+  <section id="contact" class="final container">
+    <h2 class="disp reveal">HAVE A BUSINESS WORTH BUILDING FOR?</h2>
+    <a href="#" class="final-cta reveal">DM CLUTCHUB →</a>
+    <p class="reveal">Tell us what you're building. We'll take it from there.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="brand-mark"><strong>CLUTCHUB</strong><span>CREATIVE TECHNOLOGY STUDIO</span></div>
+  <nav><ul style="list-style:none;display:flex;gap:26px;font-size:13px">
+    <li><a href="#work">Work</a></li><li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li>
+  </ul></nav>
+  <div class="socials"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">X</a></div>
+  <div class="bottom-line">© 2026 CLUTCHUB</div>
+</footer>
+
+<script>
+  document.querySelectorAll('.reveal').forEach(el=>{
+    const io=new IntersectionObserver(([e])=>{if(e.isIntersecting){e.target.classList.add('in');io.disconnect();}},{threshold:0.15});
+    io.observe(el);
+  });
+  const burger=document.querySelector('.burger');
+  burger&&burger.addEventListener('click',()=>{
+    document.querySelectorAll('nav ul').forEach(u=>u.style.display=u.style.display==='flex'?'none':'flex');
+  });
+</script>
+</body>
+</html>
