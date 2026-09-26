@@ -71,6 +71,19 @@
     font-size:12px;letter-spacing:0.1em;color:var(--muted);
     display:flex;flex-wrap:wrap;gap:10px 24px;
   }
+  .hero{position:relative;overflow:hidden}
+.hero-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(246,244,241,.5),rgba(246,244,241,.88) 85%);
+}
+.hero > *{position:relative;z-index:2}
+@media(prefers-reduced-motion:reduce){
+  .hero-video{display:none}
+}
 
   /* generic section spacing */
   section{padding:clamp(80px,11vw,150px) 0}
@@ -200,11 +213,15 @@
 <main id="top">
 
   <section class="hero container">
-    <h1 class="disp reveal">WE BUILD AND<br>DESIGN CUSTOM<br>WEBSITES.</h1>
-    <p class="hero-sub reveal">We build what moves business forward.</p>
-    <a href="#contact" class="hero-cta reveal">NEED A WEBSITE? DM US →</a>
-    <div class="hero-index reveal">
-      <span>WEB DEVELOPMENT</span><span>/</span><span>AI AUTOMATION</span><span>/</span><span>DIGITAL SYSTEMS</span>
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="YOUR-VIDEO-SOURCE.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <h1 class="disp reveal">WE BUILD AND<br>DESIGN CUSTOM<br>WEBSITES.</h1>
+  <p class="hero-sub reveal">We build what moves business forward.</p>
+  <a href="#contact" class="hero-cta reveal">NEED A WEBSITE? DM US →</a>
+    <span>WEB DEVELOPMENT</span><span>/</span><span>AI AUTOMATION</span><span>/</span><span>DIGITAL SYSTEMS</span>
     </div>
   </section>
 
